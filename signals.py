@@ -4,8 +4,6 @@ from PyQt5.QtCore import Qt,pyqtSignal
 from functools import partial
 import time
 import os
-import re
-import shutil
 from pynput.mouse import Listener
 import pynput.mouse as pymouse
 import pynput.keyboard as pykeyboard
