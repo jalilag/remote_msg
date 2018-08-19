@@ -4,13 +4,11 @@ import os,sys
 os.environ['TCL_LIBRARY'] = r'C:/Users/agoum/AppData/Local/Programs/Python/Python37/tcl/tcl8.6'
 os.environ['TK_LIBRARY'] = r'C:/Users/agoum/AppData/Local/Programs/Python/Python37/tcl/tk8.6'
 
-# includes = ["canopen_user","check","PID","QtUserWidget","sqlite_user","tab_op"]  # nommer les modules non trouves par cx_freeze
-# includes = ["userlib"]  # nommer les modules non trouves par cx_freeze
 excludes = ['Tkinter']
-includes = ["pathlib","sys","functools","time","os","PyQt5","sqlite3","re","sys","math","pynput","pandas","numpy","subprocess"]  # nommer les modules utilises
-packages = ["numpy","py_lib","public","matplotlib.backends.backend_tkagg","tkinter.filedialog"]  # nommer les packages utilises
+includes = ["sys","functools","time","os","PyQt5","sys","math","pynput","pandas","numpy"]  # nommer les modules utilises
+packages = ["py_lib","public","numpy"]  # nommer les packages utilises
 
-includefiles = ["css","tcl86t.dll","remote.ico","tk86t.dll",r"C:\Users\agoum\AppData\Local\Programs\Python\Python37\Lib\site-packages\PyQt5\Qt\plugins\platforms\qwindows.dll"]
+includefiles = ["css","tcl86t.dll","remote.ico","tk86t.dll","start.bat"]
 
 
 # niveau d'optimisation pour la compilation en bytecodes
@@ -21,13 +19,7 @@ silent = True
 
 path = sys.path 
 path.append('C:/Users/agoum/Documents/Programmation/python/remote_msgs')
-path.append('C:/Users/agoum/Documents/Programmation/python/remote_msgs/py_lib')
-path.append('C:/Users/agoum/Documents/Programmation/python/remote_msgs/public')
 
-# path.append('C:\\users-data\\saf981896\\Documents\\02 - Applis\\python\\flodas')
-# path.append('C:\\Users\\agoum\\Documents\\Programmation\\python\\remote_msgs\\py_lib')
-# path.append('C:\\Users\\agoum\\Documents\\Programmation\\python\\remote_msgs\\public')
-# path.append(os.path.join("userlib"))
 # construction du dictionnaire des options
 options = {"path": path,
           "packages": packages,
@@ -36,12 +28,12 @@ options = {"path": path,
           "include_files": includefiles,
           "optimize": optimize,
           "silent": silent,
-          "namespace_packages":['zope'],
+          # "namespace_packages":['zope'],
           }
 
 target = Executable(
     script="remote_msgs.py",
-    base="Win32GUI",
+    base=None,
     icon = "remote.ico",
     )
 
