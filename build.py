@@ -33,7 +33,7 @@ options = {"path": path,
 
 target = Executable(
     script="remote_msgs.py",
-    base=None,
+    base="Win32GUI",
     icon = "remote.ico",
     )
 
