@@ -15,22 +15,14 @@ class Signals:
 			if os.path.isfile(fname[0]): self.view_open_file(fname[0])
 
 	def sig_process_data(self,data,grid):
-		if self.x is None or self.y is None:
-			self.u.txtBox("Erreur","Veuillez d'abord configurer la souris")
-			return
-		g_tel=grid.get_widget_by_pos(2,0).layout()
-		g_prenom=grid.get_widget_by_pos(2,1).layout()
-		tel = []
-		prenom = None
+		if self.error_manage(0X0002,self.x is None or self.y is None): return
+		tel = self.tools_get_checked_widget(grid.get_widget_by_pos(2,0).layout())
+		prenom = self.tools_get_checked_widget(grid.get_widget_by_pos(2,1).layout())
 		welcome = grid.get_widget_by_pos(4,1).isChecked()
 		message = grid.get_widget_by_pos(6,0).toPlainText()
-		for i in range(g_tel.count()):
-			if g_tel.itemAt(i).widget().isChecked(): tel.append(g_tel.itemAt(i).widget().text())
-		for i in range(g_prenom.count()):
-			if g_prenom.itemAt(i).widget().isChecked(): prenom = g_prenom.itemAt(i).widget().text()
-		if (welcome and prenom is None) or len(tel) == 0 or len(message) == 0:
-			self.u.txtBox("Erreur","Un des champs tel, prenom, nom ou message est vide")
-			return
+		if welcome and self.error_manage(0x0001,self.check_is_empty(prenom),"prenom"): return
+		if self.error_manage(0X0001,self.check_is_empty(message),"message"): return
+		if self.error_manage(0X0001,self.check_is_empty(tel),"tel"): return
 		self.subapp.showMinimized()
 		mouse = pymouse.Controller()
 		keyboard = pykeyboard.Controller()

@@ -14,10 +14,12 @@ from template import Template
 from views import Views
 from signals import Signals
 from processing import Processing
+from error import Error
+from check import Check
 u.utxt = txt
 u.usty = sty
 
-class qt_app(Template,Design,Tools,Views,Signals,Processing):
+class qt_app(Template,Design,Tools,Views,Signals,Processing,Error,Check):
 	u = u
 	errors = error.err
 	application = None

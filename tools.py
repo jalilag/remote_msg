@@ -2,36 +2,6 @@ import pynput.mouse as pymouse
 import pynput.keyboard as pykeyboard
 
 class Tools:
-	def tools_err_manage(self,*args,**kwargs):
-		params = kwargs.get("params",None)
-		vout = kwargs.get("vout",None)
-		if len(args) == 0: return 0
-		listargs = args
-		if isinstance(listargs[0],list): listargs = listargs[0]
-		err_num = listargs[0]
-		if len(listargs) == 2 and params is None: params = listargs[1]
-		if len(listargs) == 3 and vout is None: vout = listargs[2]
-		if err_num >= 0x0001:
-			self.u.UQapplication.restoreOverrideCursor()
-			if self.errors[err_num]["group"] in self.u.utxt:
-				group = self.u.utxt[self.errors[err_num]["group"]][self.u.ulang]
-			else: group = self.errors[err_num]["group"]
-			if self.errors[err_num]["msg"] in self.u.utxt:
-				msg = self.u.utxt[self.errors[err_num]["msg"]][self.u.ulang]
-			else: msg = self.errors[err_num]["msg"]
-			msg = '0x{:04x}'.format(err_num) + " : " +msg
-			if vout == "c":
-				if params is not None:
-					print(group,"Items"+ " : " + params + "\n" + msg)
-				else:
-					print(group,msg)
-			else:
-				if params is not None:
-					self.u.txtBox(group,"Items"+ " : " + params + "\n" + msg,"critical")
-				else:
-					self.u.txtBox(group,msg,"critical")
-		return err_num
-
 	def tools_load_view(self,menu_id,content_id):
 		self.menu_view = menu_id
 		self.content_view = content_id
@@ -75,3 +45,9 @@ class Tools:
 			else:
 				keyboard.press(str(i))
 				keyboard.release(str(i))
+
+	def tools_get_checked_widget(self,lay):
+		res = []
+		for i in range(lay.count()):
+			if lay.itemAt(i).widget().isChecked(): res.append(lay.itemAt(i).widget())
+		return res
