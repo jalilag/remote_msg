@@ -35,6 +35,7 @@ class Tools:
 		else: self.u.ulang = "en"
 
 	def tools_type_str(self,word):
+		word = str(word)
 		mouse = pymouse.Controller()
 		keyboard = pykeyboard.Controller()
 		for i in word:
@@ -50,4 +51,10 @@ class Tools:
 		res = []
 		for i in range(lay.count()):
 			if lay.itemAt(i).widget().isChecked(): res.append(lay.itemAt(i).widget())
+		return res
+
+	def tools_get_checked_widget_position(self,lay):
+		res = []
+		for i in range(lay.count()):
+			if lay.itemAt(i).widget().isChecked(): res.append(i)
 		return res

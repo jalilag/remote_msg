@@ -17,10 +17,13 @@ class Signals:
 	def sig_process_data(self,data,grid):
 		if self.error_manage(0X0002,self.x is None or self.y is None): return
 		tel = self.tools_get_checked_widget(grid.get_widget_by_pos(2,0).layout())
-		prenom = self.tools_get_checked_widget(grid.get_widget_by_pos(2,1).layout())
-		welcome = grid.get_widget_by_pos(4,1).isChecked()
-		message = grid.get_widget_by_pos(6,0).toPlainText()
+		prenom = self.tools_get_checked_widget(grid.get_widget_by_pos(2,2).layout())
+		welcome = grid.get_widget_by_pos(4,3).isChecked()
+		d_from = grid.get_widget_by_pos(5,1).currentIndex()
+		d_to = grid.get_widget_by_pos(5,3).currentIndex()
+		message = grid.get_widget_by_pos(7,0).toPlainText()
 		if welcome and self.error_manage(0x0001,self.check_is_empty(prenom),"prenom"): return
+		prenom = prenom[0]
 		if self.error_manage(0X0001,self.check_is_empty(message),"message"): return
 		if self.error_manage(0X0001,self.check_is_empty(tel),"tel"): return
 		self.subapp.showMinimized()
@@ -28,6 +31,7 @@ class Signals:
 		keyboard = pykeyboard.Controller()
 		time.sleep(1)
 		for index, row in data.iterrows():
+			if index >= d_from and index <= d_to: continue
 			for t in tel:
 				time.sleep(1)
 				mouse.position = (self.x,self.y)
@@ -37,13 +41,13 @@ class Signals:
 					keyboard.release('a')
 				keyboard.press(pykeyboard.Key.delete)
 				time.sleep(0.5)
-				self.tools_type_str(row[t])
+				self.tools_type_str(row[t.text()])
 				time.sleep(1)
 				keyboard.press(pykeyboard.Key.enter)
 				keyboard.release(pykeyboard.Key.enter)
 				time.sleep(0.5)
 				if welcome:
-					self.tools_type_str("Bonjour " + str(row[prenom]).capitalize())
+					self.tools_type_str("Bonjour " + str(row[prenom.text()]).capitalize())
 					keyboard.press(pykeyboard.Key.enter)
 					keyboard.release(pykeyboard.Key.enter)
 				self.tools_type_str(message)

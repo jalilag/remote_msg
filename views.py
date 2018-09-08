@@ -35,28 +35,30 @@ class Views:
 		if sep == 'espace': sep = " "
 		data = pd.read_csv(fpath,sep,encoding="ISO-8859-1")
 		cols = data.columns
-		grid.addWidget(self.u.UQtxt(style="label",title="Colonnes telephone"),1,0)
-		grid.addWidget(self.u.UQtxt(style="label",title="Colonne prénom"),1,1)
+
+		grid.addWidget(self.u.UQtxt(style="label",title="Colonnes telephone"),1,0,1,2)
+		grid.addWidget(self.u.UQtxt(style="label",title="Colonne prénom"),1,2,1,2)
 		w = self.u.UQwidget()
 		g_tel = self.u.UQvboxlayout()
-		grid.addWidget(w,2,0)
+		grid.addWidget(w,2,0,1,2)
 		w.setLayout(g_tel)
 		w = self.u.UQwidget()
-		grid.addWidget(w,2,1)
+		grid.addWidget(w,2,2,1,2)
 		g_prenom = self.u.UQvboxlayout()
 		w.setLayout(g_prenom)
-		grid.addWidget(self.u.UQtxt(style="line_h",title=""),3,0,1,grid.columnCount())
-		grid.addWidget(self.u.UQtxt(style="label",title="Ajouter en début de message 'Bonjour' + prenom"),4,0)
-		grid.addWidget(self.u.UQcheckbox(),4,1)
+		grid.addWidget(self.u.UQtxt(style="line_h",title=""),3,0,1,-1)
+		grid.addWidget(self.u.UQtxt(style="label",title="Ajouter en début de message 'Bonjour' + prenom"),4,0,1,3)
+		grid.addWidget(self.u.UQcheckbox(),4,3)
 		for i in range(len(cols)):
 			g_tel.addWidget(self.u.UQcheckbox(title=cols[i]),i)
 			g_prenom.addWidget(self.u.UQcheckbox(exclusive=True,title=cols[i]),i)
-		grid.addWidget(self.u.UQtxt(style="label",title='Message'),5,0)
-		grid.addWidget(self.u.UQplaintxtedit(placeholder="Ecrivez votre message"),6,0,1,grid.columnCount())
-		grid.addWidget(self.u.UQtxt("SUBBOX_STD_TITLE",title=ftitle),0,0,1,grid.columnCount())
-		grid.addWidget(self.u.UQbut("STD_BUTTON",title="Lancer les messages",connect2=["clicked",partial(self.sig_process_data,data,grid)]),7,0)
-		grid.addWidget(self.u.UQbut("STD_BUTTON",title="Configure position souris",connect2=["clicked",self.sig_configure_pointer,data,grid]),7,1)
-
-
-				
-
+		grid.addWidget(self.u.UQtxt(style="label",title="De"),5,0)
+		items = [str(list(row)) for index, row in data.iterrows()]
+		grid.addWidget(self.u.UQcombo(style="field",items=items),5,1)
+		grid.addWidget(self.u.UQtxt(style="label",title="Jusqu'à"),5,2)
+		grid.addWidget(self.u.UQcombo(style="field",items=items),5,3)
+		grid.addWidget(self.u.UQtxt(style="label",title='Message'),6,0)
+		grid.addWidget(self.u.UQplaintxtedit(placeholder="Ecrivez votre message"),7,0,1,-1)
+		grid.addWidget(self.u.UQtxt("SUBBOX_STD_TITLE",title=ftitle),0,0,1,-1)
+		grid.addWidget(self.u.UQbut("STD_BUTTON",title="Lancer les messages",connect2=["clicked",partial(self.sig_process_data,data,grid)]),8,0)
+		grid.addWidget(self.u.UQbut("STD_BUTTON",title="Configure position souris",connect2=["clicked",self.sig_configure_pointer,data,grid]),8,1)

@@ -1,14 +1,14 @@
 from cx_Freeze import setup,Executable
 import os,sys
 
-os.environ['TCL_LIBRARY'] = r'C:/Users/agoum/AppData/Local/Programs/Python/Python37/tcl/tcl8.6'
-os.environ['TK_LIBRARY'] = r'C:/Users/agoum/AppData/Local/Programs/Python/Python37/tcl/tk8.6'
+os.environ['TCL_LIBRARY'] = r'C:/Users/agoum/AppData/Local/Programs/Python/Python36/tcl/tcl8.6'
+os.environ['TK_LIBRARY'] = r'C:/Users/agoum/AppData/Local/Programs/Python/Python36/tcl/tk8.6'
 
 excludes = ['Tkinter']
 includes = ["sys","functools","time","os","PyQt5","sys","math","pynput","pandas","numpy"]  # nommer les modules utilises
 packages = ["py_lib","public","numpy"]  # nommer les packages utilises
 
-includefiles = ["css","tcl86t.dll","remote.ico","tk86t.dll","start.bat"]
+includefiles = ["css","C:/Users/agoum/AppData/Local/Programs/Python/Python36/DLLs/tcl86t.dll","remote.ico","C:/Users/agoum/AppData/Local/Programs/Python/Python36/DLLs/tk86t.dll","start.bat"]
 
 
 # niveau d'optimisation pour la compilation en bytecodes
