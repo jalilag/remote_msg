@@ -31,7 +31,7 @@ class Signals:
 		keyboard = pykeyboard.Controller()
 		time.sleep(1)
 		for index, row in data.iterrows():
-			if index >= d_from and index <= d_to: continue
+			if index < d_from and index > d_to: continue
 			for t in tel:
 				time.sleep(1)
 				mouse.position = (self.x,self.y)

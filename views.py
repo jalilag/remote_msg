@@ -53,7 +53,8 @@ class Views:
 			g_tel.addWidget(self.u.UQcheckbox(title=cols[i]),i)
 			g_prenom.addWidget(self.u.UQcheckbox(exclusive=True,title=cols[i]),i)
 		grid.addWidget(self.u.UQtxt(style="label",title="De"),5,0)
-		items = [str(list(row)) for index, row in data.iterrows()]
+		items = [str(index) + ":" + str(list(row)) for index, row in data.iterrows()]
+
 		grid.addWidget(self.u.UQcombo(style="field",items=items),5,1)
 		grid.addWidget(self.u.UQtxt(style="label",title="Jusqu'à"),5,2)
 		grid.addWidget(self.u.UQcombo(style="field",items=items),5,3)
